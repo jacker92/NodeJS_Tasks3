@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const validator = require('./query_validator.js');
 const errorHandler = require("./error_handler.js");
 const fetch = require("node-fetch");
+const parser = require("./foodco_parser.js");
 
 const app = express();
 const port = 3000;
@@ -23,7 +24,7 @@ app.get('/menus', (req, res, next) => {
             console.log(response.status, response.statusText);
             return response.json();   
         })
-        .then(response => res.send(response))
+        .then(response => res.send(parser.parseData(response, req.query["action"])))
         .catch(err => console.log(err));
     }
 });
