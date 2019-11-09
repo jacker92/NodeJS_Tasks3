@@ -6,7 +6,7 @@ const validate = (req,res) => {
         if(action != 'today' && action != 'tomorrow') {
             res.status(400).send("Invalid query parameters!");
         } else {
-            res.status(200).send(); 
+            res.status(200).send();
         }
     } else {
         res.status(200).send();
