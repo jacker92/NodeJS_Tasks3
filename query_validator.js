@@ -4,12 +4,12 @@ const validate = (req,res) => {
     let action = req.query["action"];
     if(action) {
         if(action != 'today' && action != 'tomorrow') {
-            res.status(400).send("Invalid query parameters!");
+            res.status(400);
         } else {
-            res.status(200).send();
+            res.status(200);
         }
     } else {
-        res.status(200).send();
+        res.status(200);
     }
 
 }

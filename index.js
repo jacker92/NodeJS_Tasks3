@@ -1,7 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
 const validator = require('./query_validator.js');
-const errorHandler = require("./error_handler.js")
+const errorHandler = require("./error_handler.js");
+const fetch = require("node-fetch");
 
 const app = express();
 const port = 3000;
@@ -15,6 +16,16 @@ app.get('/menus', (req, res, next) => {
 
 }, (req, res) => {
     validator.validate(req, res);
+    console.log(res.statusCode);
+    if(res.statusCode == 200) {
+        fetch("https://www.fazerfoodco.fi/modules/json/json/Index?costNumber=0083&language=fi")
+        .then( response => {
+            console.log(response.status, response.statusText);
+            return response.json();   
+        })
+        .then(response => res.send(response))
+        .catch(err => console.log(err));
+    }
 });
 
 app.use(errorHandler.errorHandler); 
